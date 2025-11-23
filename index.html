@@ -1,37 +1,301 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <title>Thomas Marshall</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    :root {
+      --bg: #100b1d;
+      --card-max-width: 960px;
+      --text-main: #f5f5f5;
+      --text-muted: #9ca3af;
+      --accent: #60a5fa;
+      --row-border: #1f2933;
+      --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        system-ui, -system-ui, "Helvetica Neue", Arial, sans-serif;
+    }
+
     * {
       box-sizing: border-box;
+    }
+
+    html,
+    body {
       margin: 0;
       padding: 0;
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-main);
     }
 
     body {
-      min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: #000000;
-      color: #ffffff;
-      font-family: "Helvetica Neue 9000", Helvetica, Arial, sans-serif;
-      text-align: center; 
     }
 
-    h1 {
-      font-size: 3rem;
-      font-weight: 600;
-      letter-spacing: 0;
-      -webkit-font-smoothing:
-      text-rendering: optimizeLegibility;
+    .page {
+      width: 100%;
+      max-width: var(--card-max-width);
+      padding: 48px 20px 80px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .name {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin: 0 0 8px;
+    }
+
+    .tagline {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .icon-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: #111827;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .icon-link:hover {
+      background: #1f2937;
+      transform: translateY(-1px);
+    }
+
+    .icon-link img {
+      width: 16px;
+      height: 16px;
+      filter: invert(1) grayscale(1);
+      opacity: 0.9;
+      display: block;
+    }
+
+    .sections {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr) minmax(0, 0.9fr);
+      column-gap: 32px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--row-border);
+      align-items: baseline;
+      font-size: 14px;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .row__left a,
+    .row__left span {
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .row__left a:hover {
+      color: var(--accent);
+    }
+
+    /* NEW: prevent wrapping of institution names on desktop */
+    .row__left {
+      white-space: nowrap;
+    }
+
+    .row__middle {
+      color: var(--text-main);
+    }
+
+    .row__right {
+      text-align: right;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .row--muted .row__middle {
+      color: var(--text-muted);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 32px 16px 56px;
+      }
+
+      .name {
+        font-size: 26px;
+      }
+
+      .sections {
+        max-width: 100%;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+        row-gap: 4px;
+      }
+
+      .row__right {
+        text-align: left;
+      }
+
+      /* On small screens, allow names to wrap so they don't overflow */
+      .row__left {
+        white-space: normal;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Thomas Marshall</h1>
+  <div class="page">
+    <header class="header">
+      <h1 class="name">Thomas Marshall</h1>
+      <div class="tagline">
+        Technical Leadership · Engineering Delivery · PhD Medicine
+      </div>
+      <div class="links">
+        <a
+          class="icon-link"
+          href="https://www.linkedin.com/in/thomasimarshall"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/icons/linkedin.svg"
+            alt="LinkedIn icon"
+          />
+        </a>
+        <a
+          class="icon-link"
+          href="https://www.researchgate.net/profile/Thomas-Marshall"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="ResearchGate"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/icons/researchgate.svg"
+            alt="ResearchGate icon"
+          />
+        </a>
+      </div>
+    </header>
+
+    <main class="sections">
+      <section class="section">
+        <div class="section-title">Work</div>
+
+        <div class="row">
+          <div class="row__left">
+            <a href="https://www.diaceutics.com/" target="_blank" rel="noopener noreferrer">
+              Diaceutics
+            </a>
+          </div>
+          <div class="row__right">Director of Agile Delivery</div>
+          <div class="row__right">2023–now</div>
+        </div>
+
+        <div class="row">
+          <div class="row__left">
+            <a href="https://www.aflac.com/" target="_blank" rel="noopener noreferrer">
+              Aflac
+            </a>
+          </div>
+          <div class="row__right">Technical Delivery Lead</div>
+          <div class="row__right">2020–2021</div>
+        </div>
+
+        <div class="row">
+          <div class="row__left">
+            <a href="https://www.philips.co.uk/healthcare" target="_blank" rel="noopener noreferrer">
+              Philips Healthcare
+            </a>
+          </div>
+          <div class="row__right">Engineering Manager &amp; Delivery Group Lead</div>
+          <div class="row__right">2018–2020</div>
+        </div>
+
+        <div class="row">
+          <div class="row__left">
+            <a
+              href="https://mmsholdings.com/exploristics/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Exploristics
+            </a>
+          </div>
+          <div class="row__right">Software Engineer</div>
+          <div class="row__right">2015–2018</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">Education</div>
+
+        <div class="row">
+          <div class="row__left">
+            <a
+              href="https://www.qub.ac.uk/research-centres/cancer-research/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Centre for Cancer Research (QUB)
+            </a>
+          </div>
+          <div class="row__right"></div>
+          <div class="row__right">PhD Medicine</div>
+        </div>
+
+        <div class="row">
+          <div class="row__left">
+            <a href="https://www.qub.ac.uk" target="_blank" rel="noopener noreferrer">
+              Queen’s University Belfast
+            </a>
+          </div>
+          <div class="row__middle"></div>
+          <div class="row__right">MSci Physics (1st Class)</div>
+        </div>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
