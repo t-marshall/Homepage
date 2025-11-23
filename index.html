@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #100b1d;
-      --card-max-width: 960px;
+      --bg: #0c0d0f;
+      --card-max-width: 580px;
+      --content-max-width: 720px;
       --text-main: #f5f5f5;
       --text-muted: #9ca3af;
       --accent: #60a5fa;
-      --row-border: #1f2933;
+      --row-border: #28313b;
       --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Text",
         system-ui, -system-ui, "Helvetica Neue", Arial, sans-serif;
     }
@@ -37,12 +38,12 @@
     .page {
       width: 100%;
       max-width: var(--card-max-width);
-      padding: 48px 20px 80px;
+      padding: 40px 20px 72px;
     }
 
     .header {
       text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 48px;
     }
 
     .name {
@@ -57,13 +58,13 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .links {
       display: flex;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
       margin-top: 4px;
     }
 
@@ -74,12 +75,12 @@
       width: 28px;
       height: 28px;
       border-radius: 999px;
-      background: #111827;
+      background: #141820;
       transition: background 0.15s ease, transform 0.15s ease;
     }
 
     .icon-link:hover {
-      background: #1f2937;
+      background: #1f2631;
       transform: translateY(-1px);
     }
 
@@ -91,8 +92,14 @@
       display: block;
     }
 
+    .icon-link svg {
+      width: 16px;
+      height: 16px;
+      fill: #e5e7eb;
+    }
+
     .sections {
-      max-width: 720px;
+      max-width: var(--content-max-width);
       margin: 0 auto;
     }
 
@@ -101,53 +108,81 @@
     }
 
     .section-title {
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .rows {
+      width: 100%;
     }
 
     .row {
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr) minmax(0, 0.9fr);
-      column-gap: 32px;
-      padding: 10px 0;
-      border-bottom: 1px dashed var(--row-border);
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      column-gap: 16px;
       align-items: baseline;
+      padding: 8px 0;
       font-size: 14px;
     }
 
-    .row:last-child {
-      border-bottom: none;
+    .row + .row {
+      border-top: 1px solid #11151c;
     }
 
-    .row__left a,
-    .row__left span {
+    .row-company a {
       color: var(--text-main);
       text-decoration: none;
     }
 
-    .row__left a:hover {
+    .row-company a:hover {
       color: var(--accent);
     }
 
-    .row__left {
-      white-space: nowrap;
-    }
-
-    .row__middle {
+    .row-middle {
+      position: relative;
       color: var(--text-main);
-    }
-
-    .row__right {
       text-align: right;
-      color: var(--text-main);
-      white-space: nowrap;
+      padding-left: 8px;
+      padding-right: 4px;
     }
 
-    .row--muted .row__middle {
-      color: var(--text-muted);
+    .row-middle::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      border-bottom: 1px dashed var(--row-border);
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+
+    .row-role {
+      position: relative;
+      padding-left: 6px;
+      background: var(--bg);
+      z-index: 1;
+    }
+
+    .row-year {
+      text-align: right;
+      white-space: nowrap;
+      color: var(--text-main);
+    }
+
+    .row--no-role .row-middle::before {
+      display: none;
+    }
+
+    .row--no-role .row-middle {
+      padding: 0;
+    }
+
+    .row--no-role .row-year {
+      justify-self: end;
     }
 
     a {
@@ -156,29 +191,34 @@
 
     @media (max-width: 720px) {
       .page {
-        padding: 32px 16px 56px;
+        padding: 28px 16px 56px;
       }
 
       .name {
         font-size: 26px;
       }
 
-      .sections {
-        max-width: 100%;
+      .rows {
+        border-top: 1px solid #11151c;
       }
 
       .row {
         grid-template-columns: 1fr;
-        row-gap: 4px;
+        row-gap: 2px;
+        border-top: none;
       }
 
-      .row__right {
+      .row-middle::before {
+        display: none;
+      }
+
+      .row-role {
+        padding-left: 0;
+      }
+
+      .row-year {
         text-align: left;
-      }
-
-      /* On small screens, allow names to wrap so they don't overflow */
-      .row__left {
-        white-space: normal;
+        color: var(--text-muted);
       }
     }
   </style>
@@ -193,6 +233,16 @@
       <div class="links">
         <a
           class="icon-link"
+          href="mailto:thomas@thomasmarshall.net"
+          aria-label="Email"
+        >
+            <img 
+              src="https://cdn.jsdelivr.net/npm/heroicons@2.1.1/24/solid/envelope.svg"
+              alt="Email icon"
+            />
+        </a>
+        <a
+          class="icon-link"
           href="https://www.linkedin.com/in/thomasimarshall"
           target="_blank"
           rel="noopener noreferrer"
@@ -201,6 +251,18 @@
           <img
             src="https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/icons/linkedin.svg"
             alt="LinkedIn icon"
+          />
+        </a>
+        <a
+          class="icon-link"
+          href="https://github.com/t-marshall/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/npm/simple-icons@9.21.0/icons/github.svg"
+            alt="GitHub icon"
           />
         </a>
         <a
@@ -221,77 +283,87 @@
     <main class="sections">
       <section class="section">
         <div class="section-title">Work</div>
-
-        <div class="row">
-          <div class="row__left">
-            <a href="https://www.diaceutics.com/" target="_blank" rel="noopener noreferrer">
-              Diaceutics
-            </a>
+        <div class="rows">
+          <div class="row">
+            <div class="row-company">
+              <a href="https://www.diaceutics.com/" target="_blank" rel="noopener noreferrer">
+                Diaceutics
+              </a>
+            </div>
+            <div class="row-middle">
+              <span class="row-role">Director of Agile Delivery</span>
+            </div>
+            <div class="row-year">2021–now</div>
           </div>
-          <div class="row__right">Director of Agile Delivery</div>
-          <div class="row__right">2021–now</div>
-        </div>
 
-        <div class="row">
-          <div class="row__left">
-            <a href="https://www.aflac.com/" target="_blank" rel="noopener noreferrer">
-              Aflac
-            </a>
+          <div class="row">
+            <div class="row-company">
+              <a href="https://www.aflac.com/" target="_blank" rel="noopener noreferrer">
+                Aflac
+              </a>
+            </div>
+            <div class="row-middle">
+              <span class="row-role">Technical Delivery Lead</span>
+            </div>
+            <div class="row-year">2020–2021</div>
           </div>
-          <div class="row__right">Technical Delivery Lead</div>
-          <div class="row__right">2020–2021</div>
-        </div>
 
-        <div class="row">
-          <div class="row__left">
-            <a href="https://www.philips.co.uk/healthcare" target="_blank" rel="noopener noreferrer">
-              Philips Healthcare
-            </a>
+          <div class="row">
+            <div class="row-company">
+              <a href="https://www.philips.co.uk/healthcare" target="_blank" rel="noopener noreferrer">
+                Philips
+              </a>
+            </div>
+            <div class="row-middle">
+              <span class="row-role">Engineering Manager</span>
+            </div>
+            <div class="row-year">2018–2020</div>
           </div>
-          <div class="row__right">Engineering Manager &amp; Delivery Group Lead</div>
-          <div class="row__right">2018–2020</div>
-        </div>
 
-        <div class="row">
-          <div class="row__left">
-            <a
-              href="https://mmsholdings.com/exploristics/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Exploristics
-            </a>
+          <div class="row">
+            <div class="row-company">
+              <a
+                href="https://mmsholdings.com/exploristics/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Exploristics
+              </a>
+            </div>
+            <div class="row-middle">
+              <span class="row-role">Software Engineer</span>
+            </div>
+            <div class="row-year">2015–2018</div>
           </div>
-          <div class="row__right">Software Engineer</div>
-          <div class="row__right">2015–2018</div>
         </div>
       </section>
 
       <section class="section">
         <div class="section-title">Education</div>
-
-        <div class="row">
-          <div class="row__left">
-            <a
-              href="https://www.qub.ac.uk/research-centres/cancer-research/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Centre for Cancer Research (QUB)
-            </a>
+        <div class="rows">
+          <div class="row row--no-role">
+            <div class="row-company">
+              <a
+                href="https://www.qub.ac.uk/research-centres/cancer-research/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Centre for Cancer Research (QUB)
+              </a>
+            </div>
+            <div class="row-middle"></div>
+            <div class="row-year">PhD Medicine</div>
           </div>
-          <div class="row__right"></div>
-          <div class="row__right">PhD Medicine</div>
-        </div>
 
-        <div class="row">
-          <div class="row__left">
-            <a href="https://www.qub.ac.uk" target="_blank" rel="noopener noreferrer">
-              Queen’s University Belfast
-            </a>
+          <div class="row row--no-role">
+            <div class="row-company">
+              <a href="https://www.qub.ac.uk" target="_blank" rel="noopener noreferrer">
+                Queen’s University Belfast
+              </a>
+            </div>
+            <div class="row-middle"></div>
+            <div class="row-year">MSci Physics (First Class)</div>
           </div>
-          <div class="row__middle"></div>
-          <div class="row__right">MSci Physics (1st Class)</div>
         </div>
       </section>
     </main>
